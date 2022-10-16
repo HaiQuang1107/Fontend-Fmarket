@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fontend_fmarket/screens/Loginpage.dart';
-import 'package:fontend_fmarket/screens/cartpage.dart';
-import 'package:fontend_fmarket/screens/categorypage.dart';
-import 'package:fontend_fmarket/screens/homepage.dart';
-import 'package:fontend_fmarket/screens/profilepage.dart';
+import 'package:fontend_fmarket/screens/cart/cartPage.dart';
+import 'package:fontend_fmarket/screens/category/categoryPage.dart';
+import 'package:fontend_fmarket/screens/product/productPage.dart';
+import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
 
 void main() {
   runApp(const MyApp());

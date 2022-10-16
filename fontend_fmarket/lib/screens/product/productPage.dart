@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/fonts/app_styles.dart';
 import 'package:fontend_fmarket/models/product.dart';
 import 'package:fontend_fmarket/networks/api_services.dart';
-import 'package:fontend_fmarket/screens/productDetail.dart';
-import 'package:http/http.dart' as http;
+import 'package:fontend_fmarket/screens/product/productDetail.dart';
+
 
 class Homepage extends StatefulWidget {
   @override
@@ -239,7 +239,7 @@ class _HomepageState extends State<Homepage> {
                                                     8, 4, 0, 0),
                                             child: Text(
                                               "Price:   " +
-                                                  list[index].price.toString(),
+                                                  list[index].price.toString() +" \$",
                                               // style: AppTheme.of(context).bodyText2,
                                             ),
                                           ),
