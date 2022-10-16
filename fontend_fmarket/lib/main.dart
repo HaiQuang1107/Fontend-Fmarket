@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/screens/cartpage.dart';
 import 'package:fontend_fmarket/screens/categorypage.dart';
 import 'package:fontend_fmarket/screens/homepage.dart';
+import 'package:fontend_fmarket/screens/login_page.dart';
 import 'package:fontend_fmarket/screens/profilepage.dart';
 
 void main() {
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         primaryColorLight: Color(0xFFFBE0E6),
         accentColor: Color(0xFF181F32),
       ),
-      home: const MyHomePage(),
+      // home: const MyHomePage(),
+      home: const LoginWdidget(),
     );
   }
 }
@@ -84,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage>
                     Icons.home,
                     size: 24.0,
                   ),
-                  text: 'Home app',
+                  text: 'Home',
                 ),
                 Tab(
                   icon: Icon(
