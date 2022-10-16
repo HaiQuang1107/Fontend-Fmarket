@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 class AppStyles{
-  static   TextStyle h1= GoogleFonts.lora(
+  static   TextStyle h1= GoogleFonts.varela(
     fontSize: 25,
     color: Colors.black
   );
