@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage>
               labelStyle: TextStyle(fontSize: 10.0),
               indicator: UnderlineTabIndicator(
                   borderSide:
-                  BorderSide(color: Colors.grey.shade200, width: 0.0),
+                      BorderSide(color: Colors.grey.shade200, width: 0.0),
                   insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 40.0)),
               indicatorColor: Colors.grey.shade200,
               tabs: <Widget>[
@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage>
                     Icons.home,
                     size: 24.0,
                   ),
-                  text: 'Home',
+                  text: 'Home app',
                 ),
                 Tab(
                   icon: Icon(
