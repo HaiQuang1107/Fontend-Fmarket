@@ -25,7 +25,7 @@ class _LoginWdidgetState extends State<LoginWdidget> {
       backgroundColor: Colors.orange,
       key: _mainScaffoldKey,
       body: Container(
-        padding: const EdgeInsets.only(top: 60),
+        padding: const EdgeInsets.only(top: 90),
         alignment: Alignment.center,
         child: Column(
           children: <Widget>[
@@ -40,7 +40,7 @@ class _LoginWdidgetState extends State<LoginWdidget> {
                   ),
                   child: Container(
                     width: 360.00,
-                    height: 440.00,
+                    height: 378.00,
                     child: Column(
                       children: <Widget>[
                         Padding(
@@ -113,8 +113,7 @@ class _LoginWdidgetState extends State<LoginWdidget> {
                           color: Colors.grey,
                         ),
                         Container(
-                          margin:
-                              const EdgeInsets.only(top: 60.0, bottom: 26.0),
+                          margin: const EdgeInsets.only(top: 40.0, bottom: 5.0),
                         ),
                         Container(
                             alignment: Alignment.center,
@@ -135,11 +134,51 @@ class _LoginWdidgetState extends State<LoginWdidget> {
                                 fontFamily: "SignikaRegular"),
                           ),
                           onPressed: () {},
-                        ))
+                        )),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Text('Does no have account ?'),
+                            TextButton(
+                                onPressed: (() {}),
+                                child: const Text(
+                                  'Sign in',
+                                  style: TextStyle(fontSize: 20),
+                                )),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 399),
+                  child: Text(
+                    "OR",
+                    style: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.none,
+                        fontSize: 25.0,
+                        fontFamily: "WorkSansMedium"),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 430),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.all(15.0),
+                      decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: new Icon(
+                        FontAwesomeIcons.google,
+                        color: Color(0xFF0084ff),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ],
