@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fontend_fmarket/screens/sign_up_page.dart';
 
 class LoginWdidget extends StatefulWidget {
   const LoginWdidget({super.key});
@@ -24,14 +25,30 @@ class _LoginWdidgetState extends State<LoginWdidget> {
     return Scaffold(
       backgroundColor: Colors.orange,
       key: _mainScaffoldKey,
+      resizeToAvoidBottomInset: false,
       body: Container(
-        padding: const EdgeInsets.only(top: 90),
+        padding: const EdgeInsets.only(top: 190),
         alignment: Alignment.center,
         child: Column(
           children: <Widget>[
+            Column(
+              children: [
+                Text(
+                  "Login",
+                  style: TextStyle(fontSize: 30),
+                )
+              ],
+            ),
             Stack(
               alignment: Alignment.topCenter,
               children: <Widget>[
+                // Positioned(
+                //       child: FadeAnimation(1.6, Container(
+                //         margin: EdgeInsets.only(top: 50),
+                //         child: Center(
+                //           child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
+                //         ),
+                //       ),
                 Card(
                   elevation: 3.0,
                   color: Colors.white,
@@ -140,9 +157,14 @@ class _LoginWdidgetState extends State<LoginWdidget> {
                           children: <Widget>[
                             const Text('Does no have account ?'),
                             TextButton(
-                                onPressed: (() {}),
+                                onPressed: (() {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignUp()));
+                                }),
                                 child: const Text(
-                                  'Sign in',
+                                  'Sign up',
                                   style: TextStyle(fontSize: 20),
                                 )),
                           ],
