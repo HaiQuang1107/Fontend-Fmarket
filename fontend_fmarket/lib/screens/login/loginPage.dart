@@ -5,6 +5,7 @@ import 'package:fontend_fmarket/screens/login/createAccout.dart';
 import 'package:fontend_fmarket/screens/product/productDetail.dart';
 import 'package:fontend_fmarket/screens/product/productPage.dart';
 import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -13,9 +14,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-        Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
         Scaffold(
@@ -26,10 +28,10 @@ class _LoginPageState extends State<LoginPage> {
             leading: IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
+                  context,
+                  MaterialPageRoute(
                     builder: (context) => MyHomePage(),
-                ),
+                  ),
                 );
               },
               icon: Icon(
@@ -68,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                           border: InputBorder.none,
                           prefixIcon: Padding(
                             padding:
-                            const EdgeInsets.symmetric(horizontal: 20.0),
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Icon(
                               Icons.email_outlined,
                               // size: 28,
@@ -93,11 +95,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Center(
                         child: TextField(
+                          obscureText: _isObscure,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 20.0),
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Icon(
                                 Icons.password_sharp,
                                 // size: 28,
@@ -105,11 +108,19 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             hintText: "password",
+                            suffixIcon: IconButton(
+                              icon: Icon(_isObscure
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
                             hintStyle: TextStyle(
                                 fontSize: 22, color: Colors.white, height: 1.5),
                           ),
-
-                          obscureText: true,
                         ),
                       ),
                     ),
@@ -152,12 +163,14 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'Create New Account',
                     style: TextStyle(
-                        fontFamily: 'Varela',fontSize: 22, color: Colors.white, height: 1.5),
+                        fontFamily: 'Varela',
+                        fontSize: 22,
+                        color: Colors.white,
+                        height: 1.5),
                   ),
                   decoration: BoxDecoration(
                       border: Border(
-                          bottom:
-                          BorderSide(width: 1, color: Colors.black))),
+                          bottom: BorderSide(width: 1, color: Colors.black))),
                 ),
               ),
               SizedBox(
@@ -192,4 +205,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
