@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/fonts/app_styles.dart';
 import 'package:fontend_fmarket/screens/login/loginPage.dart';
+import 'package:fontend_fmarket/screens/proflie/changePassword.dart';
+import 'package:fontend_fmarket/screens/proflie/updateProfile.dart';
 
 
 
@@ -26,7 +28,7 @@ class _ProfilepageState extends State<Profilepage> {
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(
-                  'https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png',
+                  'https://www.ncbp.co.uk/wp-content/uploads/2016/11/no_image.jpg',
                   fit: BoxFit.cover,
                   width: 90,
                   height: 90,
@@ -44,33 +46,31 @@ class _ProfilepageState extends State<Profilepage> {
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('My Account'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UpdateProfile(
+                      )));
+            },
           ),
           ListTile(
             leading: Icon(Icons.shopping_bag),
             title: Text('History Shopping'),
             onTap: () => null,
           ),
-          // ListTile(
-          //   leading: Icon(Icons.share),
-          //   title: Text('Share'),
-          //   onTap: () => null,
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.notifications),
-          //   title: Text('Request'),
-          // ),
           Divider(),
           ListTile(
             leading: Icon(Icons.key_outlined),
             title: Text('Change Password'),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChangePassword(
+                      )));
+            },
           ),
-          // ListTile(
-          //   leading: Icon(Icons.description),
-          //   title: Text('Policies'),
-          //   onTap: () => null,
-          // ),
           Divider(),
           ListTile(
             title: Text('Log in'),
@@ -79,7 +79,7 @@ class _ProfilepageState extends State<Profilepage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => LoginWdidget(
+                      builder: (context) => LoginPage(
                       )));
             },
           ),

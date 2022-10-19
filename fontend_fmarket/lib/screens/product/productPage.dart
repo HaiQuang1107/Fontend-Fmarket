@@ -14,33 +14,11 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final List<Product> _productes = <Product>[];
-  //
-  // Future<List<Product>> ftechProductes() async {
-  //   try {
-  //     var url = 'https://secondhand-shop.herokuapp.com/products/getAllProduct';
-  //     var response = await http.get(Uri.parse(url));
-  //
-  //     var productes = <Product>[];
-  //     if (response.statusCode == 200) {
-  //       var productesJson = json.decode(response.body);
-  //       for (var cc in productesJson) {
-  //         productes.add(Product.fromJson(cc));
-  //       }
-  //     } else {
-  //       (print(response.reasonPhrase));
-  //     }
-  //
-  //     return productes;
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return List.empty();
-  // }
 
   Icon searchBtn = new Icon(Icons.search);
   Widget appBarTitle = new Text(
     'F-Market',
-    style: AppStyles.h1,
+    style: AppStyles.h1.copyWith(color: Colors.white),
   );
   @override
   Widget build(BuildContext context) {
@@ -82,7 +60,7 @@ class _HomepageState extends State<Homepage> {
                         this.searchBtn = Icon(Icons.search);
                         this.appBarTitle = new Text(
                           'F-Market',
-                          style: AppStyles.h1,
+                          style: AppStyles.h1.copyWith(color: Colors.white),
                         );
                       }
                     });
@@ -121,48 +99,6 @@ class _HomepageState extends State<Homepage> {
                                 borderRadius: BorderRadius.circular(8)
                                 // BorderRadius.all(Radius.circular(10)),
                                 ),
-                            // child: ListTile(
-                            //   //tileColor: Colors.primaries[index % Colors.primaries.length].withOpacity(0.3),
-                            //   onTap: () {
-                            //     Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (context) => ProductDetail(
-                            //                 list[index].name.toString(),
-                            //               list[index].price.toString(),
-                            //               list[index].image == ""
-                            //                     ? "https://mapandan.gov.ph/wp-content/uploads/2018/03/no_image.jpg"
-                            //                     : list[index].image.toString(),
-                            //             )));
-                            //   },
-                            //   leading: Container(
-                            //     width: 60,
-                            //     height: 100,
-                            //     color: Colors
-                            //         .primaries[index % Colors.primaries.length]
-                            //         .withOpacity(0.5),
-                            //     child: Image.network(
-                            //         list[index].image == ""
-                            //             ? "https://mapandan.gov.ph/wp-content/uploads/2018/03/no_image.jpg"
-                            //             : list[index].image.toString(),
-                            //         width: 100,
-                            //         height: 100,
-                            //         fit: BoxFit.cover,
-                            //         scale: 0.5),
-                            //   ),
-                            //   title: Column(
-                            //       children: <Widget>[
-                            //         Text(
-                            //           list[index].name.toString(),
-                            //           key: Key('text_$index'),
-                            //         )],
-                            //   ),
-                            //   // title:
-                            //   // Text(
-                            //   //   list[index].name.toString(),
-                            //   //   key: Key('text_$index'),
-                            //   // ),
-                            // ),
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),

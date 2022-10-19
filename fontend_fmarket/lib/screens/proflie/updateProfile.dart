@@ -1,15 +1,16 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fontend_fmarket/screens/login/loginPage.dart';
-class CreateNewAccount extends StatefulWidget {
-  const CreateNewAccount({Key? key}) : super(key: key);
+import '../../main.dart';
+class UpdateProfile extends StatefulWidget {
+  const UpdateProfile({Key? key}) : super(key: key);
 
   @override
-  State<CreateNewAccount> createState() => _CreateNewAccountState();
+  State<UpdateProfile> createState() => _UpdateProfileState();
 }
 
-class _CreateNewAccountState extends State<CreateNewAccount> {
+class _UpdateProfileState extends State<UpdateProfile> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,6 +18,16 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
       children: [
         Scaffold(
           backgroundColor: Colors.orangeAccent.shade200,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -26,22 +37,14 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                 Stack(
                   children: [
                     Center(
-                      child: ClipOval(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: CircleAvatar(
-                            radius: size.width * 0.14,
-                            backgroundColor: Colors.grey[400]!.withOpacity(
-                              0.4,
-                            ),
-                            child: Icon(
-                              FontAwesomeIcons.user,
-                              color: Colors.white,
-                              size: size.width * 0.1,
-                            ),
+                        child: ClipOval(
+                          child: Image.network(
+                            'https://www.ncbp.co.uk/wp-content/uploads/2016/11/no_image.jpg',
+                            fit: BoxFit.cover,
+                            width: 90,
+                            height: 90,
                           ),
                         ),
-                      ),
                     ),
                     Positioned(
                       top: size.height * 0.08,
@@ -91,75 +94,6 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                             hintText: "Email",
                             hintStyle: TextStyle(
                                 fontSize: 22, color: Colors.white, height: 1.5),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Container(
-                        height: size.height * 0.08,
-                        width: size.width * 0.8,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Center(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Icon(
-                                  Icons.password_sharp,
-                                  // size: 28,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              hintText: "password",
-                              hintStyle: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
-                                  height: 1.5),
-                            ),
-                            obscureText: true,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Container(
-                        height: size.height * 0.08,
-                        width: size.width * 0.8,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Center(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Icon(
-                                  Icons.password_sharp,
-                                  // size: 28,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              hintText: "comfirm password",
-                              hintStyle: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
-                                  height: 1.5),
-                            ),
-                            obscureText: true,
-                            style: TextStyle(
-                                fontSize: 22, color: Colors.white, height: 1.5),
-
                           ),
                         ),
                       ),
@@ -276,7 +210,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                       child: TextButton(
                         onPressed: () {},
                         child: Text(
-                          "Register",
+                          "Update Profile",
                           style: TextStyle(
                               fontSize: 22,
                               color: Colors.white,
@@ -287,37 +221,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                     ),
                     SizedBox(
                       height: 25,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Already have an account?',
-                          style: TextStyle(
-                              fontSize: 22, color: Colors.white, height: 1.5),
-                        ),
-                        GestureDetector(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          ),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.white,
-                                height: 1.5,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    )
-                  ],
+                    ),],
                 ),
               ],
             ),

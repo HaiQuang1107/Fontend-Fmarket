@@ -1,162 +1,195 @@
 import 'package:flutter/material.dart';
-
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fontend_fmarket/fonts/app_styles.dart';
-
-class LoginWdidget extends StatefulWidget {
-  const LoginWdidget({super.key});
+import 'package:fontend_fmarket/main.dart';
+import 'package:fontend_fmarket/models/product.dart';
+import 'package:fontend_fmarket/screens/login/createAccout.dart';
+import 'package:fontend_fmarket/screens/product/productDetail.dart';
+import 'package:fontend_fmarket/screens/product/productPage.dart';
+import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginWdidget> createState() => _LoginWdidgetState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginWdidgetState extends State<LoginWdidget> {
-  bool _isObscure = true;
-  final FocusNode focusEmail = FocusNode();
-  final FocusNode focusPassword = FocusNode();
-  final GlobalKey<ScaffoldState> _mainScaffoldKey =
-  new GlobalKey<ScaffoldState>();
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.orange,
-      key: _mainScaffoldKey,
-      body: Column(
-
-        children: [
-          Container(
-            padding:const EdgeInsets.only(top:100 ) ,
-            child: Text("F-market",style: AppStyles.h1.copyWith(fontSize: 35),),
-
+        Size size = MediaQuery.of(context).size;
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: Colors.orangeAccent,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => MyHomePage(),
+                ),
+                );
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            ),
           ),
-          Container(
-            padding: const EdgeInsets.only(top: 60),
-            alignment: Alignment.center,
-            child: Column(
-              children: <Widget>[
-                Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Card(
-                      elevation: 3.0,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-
-                      child: Container(
-                        width: 350.00,
-                        height: 360.00,
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-                              child: TextField(
-                                focusNode: focusEmail,
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                style: TextStyle(
-                                  fontFamily: "SignikaSemiBold",
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    icon: Icon(
-                                      FontAwesomeIcons.envelope,
-                                      color: Colors.black,
-                                      size: 22.0,
-                                    ),
-                                    hintText: "Enter email",
-                                    hintStyle: TextStyle(
-                                        fontFamily: "SignikaSemiBold",
-                                        fontSize: 18.0)),
-                              ),
+          body: Column(
+            children: [
+              Flexible(
+                child: Center(
+                  child: Text(
+                    'F-Market',
+                    style: TextStyle(
+                        fontFamily: 'Varela',
+                        color: Colors.white,
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    height: size.height * 0.08,
+                    width: size.width * 0.8,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Center(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Icon(
+                              Icons.email_outlined,
+                              // size: 28,
+                              color: Colors.white,
                             ),
-                            Container(
-                              width: 250,
-                              height: 1,
-                              color: Colors.grey,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-                              child: TextField(
-                                obscureText: _isObscure,
-                                focusNode: focusPassword,
-                                controller: passwordController,
-                                style: TextStyle(
-                                    fontFamily: "SignikaSemiBold",
-                                    fontSize: 16.0,
-                                    color: Colors.black),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    icon: Icon(
-                                      FontAwesomeIcons.lock,
-                                      color: Colors.black,
-                                      size: 22.0,
-                                    ),
-                                    hintText: "Enter password",
-                                    suffixIcon: IconButton(
-                                      icon: Icon(_isObscure
-                                          ? Icons.visibility
-                                          : Icons.visibility_off),
-                                      onPressed: () {
-                                        setState(() {
-                                          _isObscure = !_isObscure;
-                                        });
-                                      },
-                                    ),
-                                    hintStyle: TextStyle(
-                                        fontFamily: "SignikaSemiBold",
-                                        fontSize: 18.0)),
-                              ),
-                            ),
-                            Container(
-                              width: 250.0,
-                              height: 1.0,
-                              color: Colors.grey,
-                            ),
-                            Container(
-                              margin:
-                              const EdgeInsets.only(top: 60.0, bottom: 26.0),
-                            ),
-                            Container(
-                                alignment: Alignment.center,
-                                height: 30,
-                                padding: const EdgeInsets.fromLTRB(1, 0, 10, 0),
-                                child: ElevatedButton(
-                                  child: const Text('Login'),
-                                  onPressed: () {},
-                                )),
-                            Container(
-                                child: TextButton(
-                                  child: Text(
-                                    "Forgot Password?",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: const Color.fromARGB(255, 85, 85, 85),
-                                        fontSize: 18.0,
-                                        fontFamily: "SignikaRegular"),
-                                  ),
-                                  onPressed: () {},
-                                ))
-                          ],
+                          ),
+                          hintText: "Email",
+                          hintStyle: TextStyle(
+                              fontSize: 22, color: Colors.white, height: 1.5),
                         ),
                       ),
                     ),
-                  ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Container(
+                      height: size.height * 0.08,
+                      width: size.width * 0.8,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Padding(
+                              padding:
+                              const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Icon(
+                                Icons.password_sharp,
+                                // size: 28,
+                                color: Colors.white,
+                              ),
+                            ),
+                            hintText: "password",
+                            hintStyle: TextStyle(
+                                fontSize: 22, color: Colors.white, height: 1.5),
+                          ),
+
+                          obscureText: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    height: size.height * 0.08,
+                    width: size.width * 0.8,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Color(0xff5663ff),
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                            height: 1.5,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreateNewAccount(),
+                  ),
                 ),
-              ],
-            ),
+                child: Container(
+                  child: Text(
+                    'Create New Account',
+                    style: TextStyle(
+                        fontFamily: 'Varela',fontSize: 22, color: Colors.white, height: 1.5),
+                  ),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                          BorderSide(width: 1, color: Colors.black))),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: size.height * 0.08,
+                width: size.width * 0.8,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Color(0xff5663ff),
+                ),
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Login with Google",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        height: 1.5,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }
+
