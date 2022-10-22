@@ -50,17 +50,6 @@ class _ProductDetailState extends State<ProductDetail> {
       body: ListView(
           children: [
             SizedBox(height: 15.0),
-            // Padding(
-            //   padding: EdgeInsets.only(left: 20.0),
-            //   // child: Text(
-            //   //     'Cookie',
-            //   //     style: TextStyle(
-            //   //         fontFamily: 'Varela',
-            //   //         fontSize: 42.0,
-            //   //         fontWeight: FontWeight.bold,
-            //   //         color: Color(0xFFF17532))
-            //   // ),
-            // ),
             SizedBox(height: 15.0),
             Container(
 

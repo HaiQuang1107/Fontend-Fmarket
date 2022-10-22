@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fontend_fmarket/screens/login/loginPage.dart';
+
+import '../../fonts/backgroundImage.dart';
 class CreateNewAccount extends StatefulWidget {
   const CreateNewAccount({Key? key}) : super(key: key);
 
@@ -15,8 +17,11 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
+        BackgroundImage(
+          image: 'assets/images/auth/account.png',
+        ),
         Scaffold(
-          backgroundColor: Colors.orangeAccent.shade200,
+          backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
             child: Column(
               children: [

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fontend_fmarket/fonts/app_styles.dart';
 import 'package:fontend_fmarket/main.dart';
-import 'package:fontend_fmarket/models/product.dart';
 import 'package:fontend_fmarket/screens/login/createAccout.dart';
-import 'package:fontend_fmarket/screens/product/productDetail.dart';
-import 'package:fontend_fmarket/screens/product/productPage.dart';
-import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
+
+
+import '../../fonts/backgroundImage.dart';
+import '../../fonts/large_icon_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -20,8 +21,11 @@ class _LoginPageState extends State<LoginPage> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
+        BackgroundImage(
+          image: 'assets/images/auth/Login3.png',
+        ),
         Scaffold(
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -36,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black,
+                color: Colors.white,
               ),
             ),
           ),
@@ -139,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () {},
                       child: Text(
                         "Login",
-                        style: TextStyle(
+                        style: AppStyles.h1.copyWith(
                             fontSize: 22,
                             color: Colors.white,
                             height: 1.5,
@@ -176,24 +180,10 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Color(0xff5663ff),
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Login with Google",
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        height: 1.5,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+              LargeIconButton(
+                buttonName: 'Continue with Google',
+                iconImage:
+                'assets/images/auth/google_icon.png',
               ),
               SizedBox(
                 height: 20,

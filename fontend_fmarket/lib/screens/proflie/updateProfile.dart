@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../fonts/backgroundImage.dart';
 import '../../main.dart';
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -15,9 +16,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
+
       children: [
+        BackgroundImage(
+          image: 'assets/images/auth/Login3.png',
+        ),
         Scaffold(
-          backgroundColor: Colors.orangeAccent.shade200,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,

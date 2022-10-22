@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../fonts/backgroundImage.dart';
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);
 
@@ -13,10 +15,13 @@ class _ChangePasswordState extends State<ChangePassword> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
+        BackgroundImage(
+          image: 'assets/images/auth/account.png',
+        ),
         Scaffold(
-          backgroundColor: Colors.orangeAccent.shade200,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
-            backgroundColor: Colors.orangeAccent.shade200,
+            backgroundColor: Colors.transparent,
             elevation: 0.0,
             centerTitle: true,
             leading: IconButton(
