@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fontend_fmarket/screens/cartpage.dart';
-import 'package:fontend_fmarket/screens/categorypage.dart';
-import 'package:fontend_fmarket/screens/homepage.dart';
-import 'package:fontend_fmarket/screens/login_page.dart';
-import 'package:fontend_fmarket/screens/profilepage.dart';
+import 'package:fontend_fmarket/screens/cart/cartPage.dart';
+import 'package:fontend_fmarket/screens/category/categoryPage.dart';
+import 'package:fontend_fmarket/screens/product/productPage.dart';
+import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,8 +22,8 @@ class MyApp extends StatelessWidget {
         primaryColorLight: Color(0xFFFBE0E6),
         accentColor: Color(0xFF181F32),
       ),
-      // home: const MyHomePage(),
-      home: const LoginWdidget(),
+      home: const MyHomePage(),
+      // home: const LoginWdidget(),
     );
   }
 }

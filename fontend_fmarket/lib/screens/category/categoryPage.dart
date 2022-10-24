@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/models/category.dart';
+import 'package:fontend_fmarket/networks/api_services.dart';
 import 'package:http/http.dart' as http;
 
 class Categorypage extends StatefulWidget {
@@ -11,38 +12,44 @@ class Categorypage extends StatefulWidget {
 class _CategorypageState extends State<Categorypage> {
   final List<Category> _categories = <Category>[];
 
-  Future<List<Category>> ftechCategories() async {
-    try {
-      var url =
-          'https://secondhand-shop.herokuapp.com/system-categories/getAllCategory';
-      var response = await http.get(Uri.parse(url));
-
-      var categories = <Category>[];
-      if (response.statusCode == 200) {
-        var categoriesJson = json.decode(response.body);
-        for (var categoriesJson in categoriesJson) {
-          categories.add(Category.fromJson(categoriesJson));
-        }
-      } else {
-        (print(response.reasonPhrase));
-      }
-
-      return categories;
-    } catch (e) {
-      print(e);
-    }
-    return List.empty();
-  }
+  // Future<List<Category>> ftechCategories() async {
+  //   try {
+  //     var url =
+  //         'https://secondhand-shop.herokuapp.com/system-categories/getAllCategory';
+  //     var response = await http.get(Uri.parse(url));
+  //
+  //     var categories = <Category>[];
+  //     if (response.statusCode == 200) {
+  //       var categoriesJson = json.decode(response.body);
+  //       for (var categoriesJson in categoriesJson) {
+  //         categories.add(Category.fromJson(categoriesJson));
+  //       }
+  //     } else {
+  //       (print(response.reasonPhrase));
+  //     }
+  //
+  //     return categories;
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   return List.empty();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    ftechCategories().then((value) => _categories.addAll(value));
+    ApiServices.ftechCategories().then((value) => _categories.addAll(value));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List categories'),
+        backgroundColor: Colors.orange,
+        elevation: 0.0,
+        title: Text('List Category',
+            style: TextStyle(
+                fontFamily: 'Varela',
+                fontSize: 20.0,
+                color: Colors.white)),
       ),
       body: FutureBuilder<List<Category>>(
-        future: ftechCategories(),
+        future: ApiServices.ftechCategories(),
         builder: (context, future) {
           if (!future.hasData) {
             return Container(

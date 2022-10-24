@@ -36,6 +36,11 @@ dependencies:
   google_fonts: ^3.0.1
   google_sign_in: ^5.4.2
   http: ^0.13.5
+  font_awesome_flutter: ^10.2.1
+  flutter_spinkit: ^5.1.0
+  palette_generator: ^0.3.3+2
+  form_field_validator: ^1.1.0
+  shared_preferences: ^2.0.7
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -52,9 +57,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
+<<<<<<< HEAD
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+=======
+  assets:
+    - assets/images/
+    - assets/images/auth/
+
+>>>>>>> origin
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
@@ -64,9 +76,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
+  fonts:
+    - family: Klasik
+      fonts:
+        - asset: assets/fonts/Klasik Regular.otf
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
