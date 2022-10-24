@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/models/category.dart';
 import 'package:fontend_fmarket/networks/api_services.dart';
@@ -44,17 +43,16 @@ class _CategorypageState extends State<Categorypage> {
         elevation: 0.0,
         title: Text('List Category',
             style: TextStyle(
-                fontFamily: 'Varela',
-                fontSize: 20.0,
-                color: Colors.white)),
+                fontFamily: 'Varela', fontSize: 20.0, color: Colors.white)),
       ),
       body: FutureBuilder<List<Category>>(
         future: ApiServices.ftechCategories(),
         builder: (context, future) {
           if (!future.hasData) {
             return Container(
-              child:  Center(child: CircularProgressIndicator(),)
-            );
+                child: Center(
+              child: CircularProgressIndicator(),
+            ));
           } else {
             List<Category> list = future.data!;
             return ListView.builder(
@@ -68,7 +66,7 @@ class _CategorypageState extends State<Categorypage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                         list[index].name.toString(),
+                          list[index].name.toString(),
                           style: const TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),

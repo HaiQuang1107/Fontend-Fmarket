@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/fonts/app_styles.dart';
 import 'package:fontend_fmarket/main.dart';
 import 'package:fontend_fmarket/screens/login/createAccout.dart';
-
+import 'package:http/http.dart';
 
 import '../../fonts/backgroundImage.dart';
 import '../../fonts/large_icon_button.dart';
@@ -16,6 +18,27 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void login(String email, password) async {
+    try {
+      Response response = await post(
+          Uri.parse('https://secondhand-shop.herokuapp.com/login'),
+          body: {'email': email, 'password': password});
+
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        print(data['token']);
+        print('Login successfully');
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -69,7 +92,8 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Center(
-                      child: TextField(
+                      child: TextFormField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Padding(
@@ -98,7 +122,8 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Center(
-                        child: TextField(
+                        child: TextFormField(
+                          controller: passwordController,
                           obscureText: _isObscure,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -140,7 +165,10 @@ class _LoginPageState extends State<LoginPage> {
                       color: Color(0xff5663ff),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        login(emailController.text.toString(),
+                            passwordController.text.toString());
+                      },
                       child: Text(
                         "Login",
                         style: AppStyles.h1.copyWith(
@@ -182,8 +210,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               LargeIconButton(
                 buttonName: 'Continue with Google',
-                iconImage:
-                'assets/images/auth/google_icon.png',
+                iconImage: 'assets/images/auth/google_icon.png',
               ),
               SizedBox(
                 height: 20,
