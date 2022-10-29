@@ -1,17 +1,103 @@
-import 'dart:ui';
 
+import 'dart:io';
+import 'dart:ui';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../fonts/backgroundImage.dart';
-import '../../main.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../networks/api_services.dart';
+import '../../wiget/backgroundImage.dart';
+
 class UpdateProfile extends StatefulWidget {
-  const UpdateProfile({Key? key}) : super(key: key);
+  // const UpdateProfile({Key? key}) : super(key: key);
+  String email ="";
+  String fullName = "";
+  String phone ="";
+  String address ="";
+  String image ="";
+
+
+
+
+   UpdateProfile(this.email,this.fullName,this.phone,this.address, this.image);
 
   @override
-  State<UpdateProfile> createState() => _UpdateProfileState();
+  State<UpdateProfile> createState() => _UpdateProfileState(email,fullName,phone,address, image);
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  File? imageFile;
+  String email = "";
+  String fullName = "";
+  String phone ="";
+  String address ="";
+  final storageRef = FirebaseStorage.instance.ref();
+  String image = "";
+  final storage = FirebaseStorage.instanceFor(bucket: "gs://uploadingfile-175d8.appspot.com/");
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+
+
+  _UpdateProfileState(String email,String fullname, String phone,String adreess, String image){
+    this.email = email;
+    this.fullName=fullname;
+    this.phone=phone;
+    this.address=adreess;
+    this.image = image;
+    print(image);
+    emailController.text = email;
+    nameController.text =fullname;
+    phoneController.text =phone;
+    addressController.text =adreess;
+  }
+
+  final ImagePicker _picker = ImagePicker();
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile!.path);
+
+      });
+      try {
+        final fileStore = storageRef.child("avatar/${DateTime.now()}");
+        final uploadFile = await fileStore.putFile(imageFile!);
+        image =  await fileStore.getDownloadURL();
+        print(image);
+      } on FirebaseException catch (e) {
+        print(e);
+      }
+      print(imageFile != null);
+    }
+  }
+
+
+  Future<String> updateProfile(String email, String name, String address, String phone, String? image) async {
+    String result = "";
+    SnackBar process = SnackBar(content: const Text("Processing Update"),backgroundColor: Colors.green.shade300,);
+    ScaffoldMessenger.of(context).showSnackBar(process);
+    try {
+      result = await ApiServices.UpdateApi(email, name, address, phone, image);
+      SnackBar process = SnackBar(content: Text(result),backgroundColor: Colors.green.shade300,);
+      ScaffoldMessenger.of(context).showSnackBar(process);
+    }catch (e) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Update Fail"),backgroundColor: Colors.red.shade300,));
+    }
+    if(result == "Update success"){
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+     // Navigator.push(context, MaterialPageRoute(builder: (builder) => Profilepage()));
+    }
+
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -42,13 +128,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 Stack(
                   children: [
                     Center(
-                        child: ClipOval(
-                          child: Image.network(
-                            'https://www.ncbp.co.uk/wp-content/uploads/2016/11/no_image.jpg',
+                        child: 
+                        ClipOval(
+                          child: imageFile == null ? Image.network(
+                            image == "" ? 'https://www.ncbp.co.uk/wp-content/uploads/2016/11/no_image.jpg' : image,
                             fit: BoxFit.cover,
                             width: 90,
                             height: 90,
-                          ),
+                          ) : Image.file(imageFile!,fit: BoxFit.cover, width: 90, height: 90,),
                         ),
                     ),
                     Positioned(
@@ -62,9 +149,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2),
                         ),
-                        child: Icon(
-                          FontAwesomeIcons.arrowUp,
-                          color: Colors.white,
+                        child: IconButton(
+                          icon: Icon(FontAwesomeIcons.arrowUp),
+                          color: Colors.white, onPressed: () {
+                             _getFromGallery();
+                        },
                         ),
                       ),
                     )
@@ -85,6 +174,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       ),
                       child: Center(
                         child: TextField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Padding(
@@ -114,6 +204,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         ),
                         child: Center(
                           child: TextField(
+                            controller: nameController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -131,7 +222,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
                           ),
                         ),
                       ),
@@ -147,6 +237,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         ),
                         child: Center(
                           child: TextField(
+                            controller: addressController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -164,7 +255,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
                           ),
                         ),
                       ),
@@ -180,6 +270,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         ),
                         child: Center(
                           child: TextField(
+                            controller: phoneController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -197,7 +288,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
                           ),
                         ),
                       ),
@@ -213,7 +303,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         color: Color(0xff5663ff),
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: ()  async{
+                          await updateProfile(emailController.text, nameController.text, addressController.text, phoneController.text, image);
+                        },
                         child: Text(
                           "Update Profile",
                           style: TextStyle(

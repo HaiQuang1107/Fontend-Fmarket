@@ -43,6 +43,9 @@ dependencies:
   palette_generator: ^0.3.3+2
   form_field_validator: ^1.1.0
   shared_preferences: ^2.0.7
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.3
+  firebase_core: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -82,10 +85,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Klasik
-      fonts:
-        - asset: assets/fonts/Klasik Regular.otf
+#  fonts:
+#    - family: Klasik
+#      fonts:
+#        - assets: assets/font/Klasik Regular.otf
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

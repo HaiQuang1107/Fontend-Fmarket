@@ -9,23 +9,27 @@ class ProductDetail extends StatefulWidget {
   // const ProductDetail({Key? key}) : super(key: key);
   String name1 = "";
   String price1 ="";
+  String deception1="";
   String image1 ="";
-  ProductDetail(String name, String price, String image ) {
+
+  ProductDetail(String name, String price,String deception, String image ) {
     name1 = name;
     price1 =price;
     image1 = image;
+    deception1=deception;
   }
 
   @override
-  State<ProductDetail> createState() => _ProductDetailState(name1,price1,image1);
+  State<ProductDetail> createState() => _ProductDetailState(name1,price1,deception1,image1);
 }
 
 class _ProductDetailState extends State<ProductDetail> {
   String name1 = "";
   String price1="";
+  String deception1;
   String image1 ="";
 
-  _ProductDetailState(this.name1,this.price1,this.image1);
+  _ProductDetailState(this.name1,this.price1,this.deception1,this.image1);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +85,7 @@ class _ProductDetailState extends State<ProductDetail> {
             Center(
               child: Container(
                 width: MediaQuery.of(context).size.width - 50.0,
-                child: Text('Cold, creamy ice cream sandwiched between delicious deluxe cookies. Pick your favorite deluxe cookies and ice cream flavor.',
+                child: Text(deception1,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'Varela',

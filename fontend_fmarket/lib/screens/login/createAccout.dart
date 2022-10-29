@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fontend_fmarket/screens/login/loginPage.dart';
 
-import '../../fonts/backgroundImage.dart';
+import '../../networks/api_services.dart';
+import '../../wiget/backgroundImage.dart';
 class CreateNewAccount extends StatefulWidget {
   const CreateNewAccount({Key? key}) : super(key: key);
 
@@ -12,6 +13,37 @@ class CreateNewAccount extends StatefulWidget {
 }
 
 class _CreateNewAccountState extends State<CreateNewAccount> {
+  String email = "";
+  String fullName = "";
+  String password = "";
+  String phone ="";
+  String address ="";
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+
+  Future<String> createAccount(String email, String name, String address, String phone, String password) async {
+    String result = "";
+    SnackBar process = SnackBar(content: const Text("Processing Create"),backgroundColor: Colors.green.shade300,);
+    ScaffoldMessenger.of(context).showSnackBar(process);
+    try {
+      result = await ApiServices.createApi(email, name, address, phone, password);
+      SnackBar process = SnackBar(content: Text(result),backgroundColor: Colors.green.shade300,);
+      ScaffoldMessenger.of(context).showSnackBar(process);
+      Navigator.push(context, MaterialPageRoute(builder: (builder) => LoginPage()));
+    }catch (e) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Create Fail"),backgroundColor: Colors.red.shade300,));
+    }
+    if(result == "Create success"){
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+     Navigator.push(context, MaterialPageRoute(builder: (builder) => LoginPage()));
+    }
+
+    return result;
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -82,6 +114,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                       ),
                       child: Center(
                         child: TextField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Padding(
@@ -111,6 +144,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         ),
                         child: Center(
                           child: TextField(
+                            controller: passwordController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -133,6 +167,42 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         ),
                       ),
                     ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    //   child: Container(
+                    //     height: size.height * 0.08,
+                    //     width: size.width * 0.8,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white.withOpacity(0.5),
+                    //       borderRadius: BorderRadius.circular(16),
+                    //     ),
+                    //     child: Center(
+                    //       child: TextField(
+                    //         decoration: InputDecoration(
+                    //           border: InputBorder.none,
+                    //           prefixIcon: Padding(
+                    //             padding: const EdgeInsets.symmetric(
+                    //                 horizontal: 20.0),
+                    //             child: Icon(
+                    //               Icons.password_sharp,
+                    //               // size: 28,
+                    //               color: Colors.white,
+                    //             ),
+                    //           ),
+                    //           hintText: "comfirm password",
+                    //           hintStyle: TextStyle(
+                    //               fontSize: 22,
+                    //               color: Colors.white,
+                    //               height: 1.5),
+                    //         ),
+                    //         obscureText: true,
+                    //         style: TextStyle(
+                    //             fontSize: 22, color: Colors.white, height: 1.5),
+                    //
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: Container(
@@ -144,42 +214,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         ),
                         child: Center(
                           child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Icon(
-                                  Icons.password_sharp,
-                                  // size: 28,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              hintText: "comfirm password",
-                              hintStyle: TextStyle(
-                                  fontSize: 22,
-                                  color: Colors.white,
-                                  height: 1.5),
-                            ),
-                            obscureText: true,
-                            style: TextStyle(
-                                fontSize: 22, color: Colors.white, height: 1.5),
-
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: Container(
-                        height: size.height * 0.08,
-                        width: size.width * 0.8,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Center(
-                          child: TextField(
+                            controller: nameController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -197,7 +232,6 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
                           ),
                         ),
                       ),
@@ -213,6 +247,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         ),
                         child: Center(
                           child: TextField(
+                            controller: addressController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -230,7 +265,6 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
                           ),
                         ),
                       ),
@@ -246,6 +280,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         ),
                         child: Center(
                           child: TextField(
+                            controller: phoneController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Padding(
@@ -263,7 +298,6 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
                           ),
                         ),
                       ),
@@ -279,7 +313,9 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         color: Color(0xff5663ff),
                       ),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async{
+                          await createAccount(emailController.text, nameController.text, addressController.text, phoneController.text, passwordController.text);
+                        },
                         child: Text(
                           "Register",
                           style: TextStyle(

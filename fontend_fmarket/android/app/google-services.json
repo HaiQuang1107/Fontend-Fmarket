@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "820748105789",
+    "project_id": "uploadingfile-175d8",
+    "storage_bucket": "uploadingfile-175d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820748105789:android:3f6f2077224ea41c071254",
+        "android_client_info": {
+          "package_name": "com.example.fontend_fmarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "820748105789-j1pqpajbn2aooe13cuqnrbr9k6s5ls2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTVBq62-eC8nBcyqaXmItXd0aMsDf7A-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "820748105789-j1pqpajbn2aooe13cuqnrbr9k6s5ls2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

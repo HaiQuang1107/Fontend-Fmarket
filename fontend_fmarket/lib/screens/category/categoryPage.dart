@@ -4,6 +4,8 @@ import 'package:fontend_fmarket/models/category.dart';
 import 'package:fontend_fmarket/networks/api_services.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
+
 class Categorypage extends StatefulWidget {
   @override
   State<Categorypage> createState() => _CategorypageState();
@@ -12,28 +14,6 @@ class Categorypage extends StatefulWidget {
 class _CategorypageState extends State<Categorypage> {
   final List<Category> _categories = <Category>[];
 
-  // Future<List<Category>> ftechCategories() async {
-  //   try {
-  //     var url =
-  //         'https://secondhand-shop.herokuapp.com/system-categories/getAllCategory';
-  //     var response = await http.get(Uri.parse(url));
-  //
-  //     var categories = <Category>[];
-  //     if (response.statusCode == 200) {
-  //       var categoriesJson = json.decode(response.body);
-  //       for (var categoriesJson in categoriesJson) {
-  //         categories.add(Category.fromJson(categoriesJson));
-  //       }
-  //     } else {
-  //       (print(response.reasonPhrase));
-  //     }
-  //
-  //     return categories;
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  //   return List.empty();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +22,20 @@ class _CategorypageState extends State<Categorypage> {
       appBar: AppBar(
         backgroundColor: Colors.orange,
         elevation: 0.0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MyHomePage(),
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
         title: Text('List Category',
             style: TextStyle(
                 fontFamily: 'Varela',

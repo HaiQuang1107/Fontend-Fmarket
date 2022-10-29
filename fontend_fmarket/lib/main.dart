@@ -1,10 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/screens/cart/cartPage.dart';
-import 'package:fontend_fmarket/screens/category/categoryPage.dart';
+import 'package:fontend_fmarket/screens/category/categoryListPage.dart';
 import 'package:fontend_fmarket/screens/product/productPage.dart';
 import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
-
-void main() {
+import 'firebase_options.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final storage = FirebaseStorage.instanceFor(bucket: "gs://uploadingfile-175d8.appspot.com/");
   runApp(const MyApp());
 }
 
@@ -56,11 +63,13 @@ class _MyHomePageState extends State<MyHomePage>
       body: TabBarView(
         children: <Widget>[
           Homepage(),
-          Categorypage(),
+          // Categorypage(),
+          // CategoryScreen(),
+          Catee(),
           Cartpage(),
           Profilepage(),
         ],
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
       ),
       bottomNavigationBar: Container(

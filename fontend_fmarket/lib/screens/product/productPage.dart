@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:fontend_fmarket/fonts/app_styles.dart';
+import 'package:fontend_fmarket/design/app_styles.dart';
 import 'package:fontend_fmarket/models/product.dart';
 import 'package:fontend_fmarket/networks/api_services.dart';
 import 'package:fontend_fmarket/screens/product/productDetail.dart';
-
 
 class Homepage extends StatefulWidget {
   @override
@@ -47,7 +45,7 @@ class _HomepageState extends State<Homepage> {
                         this.searchBtn = new Icon(Icons.close);
                         this.appBarTitle = new TextField(
                             autofocus: true,
-                            cursorColor: Color(0xFAF2FB),
+                            cursorColor: Color(0xFFFAF2FB),
                             style: new TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -96,7 +94,7 @@ class _HomepageState extends State<Homepage> {
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(8)
+                                borderRadius: BorderRadius.circular(15)
                                 // BorderRadius.all(Radius.circular(10)),
                                 ),
                             child: Padding(
@@ -110,10 +108,14 @@ class _HomepageState extends State<Homepage> {
                                           builder: (context) => ProductDetail(
                                                 list[index].name.toString(),
                                                 list[index].price.toString(),
-                                                // list[index].systemCategoryName.toString(),
+                                                list[index]
+                                                    .deception
+                                                    .toString(),
                                                 list[index].image == ""
                                                     ? "https://mapandan.gov.ph/wp-content/uploads/2018/03/no_image.jpg"
-                                                    : list[index].image.toString(),
+                                                    : list[index]
+                                                        .image
+                                                        .toString(),
                                               )));
                                 },
                                 child: Column(
@@ -137,8 +139,8 @@ class _HomepageState extends State<Homepage> {
                                                       .image
                                                       .toString(),
                                               width: 100,
-                                              height: 120,
-                                              fit: BoxFit.cover,
+                                              height: 100,
+                                              fit: BoxFit.scaleDown,
                                             ),
                                           ),
                                         ),
@@ -155,8 +157,11 @@ class _HomepageState extends State<Homepage> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 4, 0, 0),
                                             child: Text(
-                                              "Name:  " +
-                                                  list[index].name.toString(),
+                                              "Category:   " +
+                                                  list[index]
+                                                      .systemCategoryName
+                                                      .toString(),
+                                              style: TextStyle(fontSize: 11),
                                               // style: AppTheme.of(context).bodyText1,
                                             ),
                                           ),
@@ -174,8 +179,30 @@ class _HomepageState extends State<Homepage> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 4, 0, 0),
                                             child: Text(
-                                              "Price:   " +
-                                                  list[index].price.toString() +" \$",
+                                              "Name:  " +
+                                                  list[index].name.toString(),
+
+                                              // style: AppTheme.of(context).bodyText2,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 2, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 4, 0, 0),
+                                            child: Text(
+                                              "Price:   " +" \$"+
+                                                  list[index].price.toString()
+                                                 ,
+
                                               // style: AppTheme.of(context).bodyText2,
                                             ),
                                           ),

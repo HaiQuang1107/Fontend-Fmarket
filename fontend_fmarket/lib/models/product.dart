@@ -3,9 +3,10 @@ class Product {
   String? name;
   int? price;
   int? quantity;
-  int? size;
+  String? size;
   String? color;
   String? image;
+  String? deception;
   String? systemCategoryName;
 
   Product(
@@ -16,6 +17,7 @@ class Product {
         this.size,
         this.color,
         this.image,
+        this.deception,
         this.systemCategoryName});
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Product {
     size = json['size'];
     color = json['color'];
     image = json['image'];
+    deception = json['deception'];
     systemCategoryName = json['systemCategoryName'];
   }
 
@@ -38,6 +41,7 @@ class Product {
     data['size'] = this.size;
     data['color'] = this.color;
     data['image'] = this.image;
+    data['deception'] = this.deception;
     data['systemCategoryName'] = this.systemCategoryName;
     return data;
   }

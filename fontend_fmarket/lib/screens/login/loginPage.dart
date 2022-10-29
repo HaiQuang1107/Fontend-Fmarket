@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:fontend_fmarket/fonts/app_styles.dart';
+import 'package:fontend_fmarket/design/app_styles.dart';
 import 'package:fontend_fmarket/main.dart';
+import 'package:fontend_fmarket/networks/api_services.dart';
 import 'package:fontend_fmarket/screens/login/createAccout.dart';
+import 'package:fontend_fmarket/screens/product/productPage.dart';
 
-
-import '../../fonts/backgroundImage.dart';
-import '../../fonts/large_icon_button.dart';
+import '../../wiget/backgroundImage.dart';
+import '../../wiget/large_icon_button.dart';
+import '../../models/login.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,6 +18,34 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  Future<Login>? _futureLogin;
+
+  Future<void> loginUser(String email, String password) async {
+    Login? loginInfo;
+    SnackBar process = SnackBar(
+      content: const Text("Processing Login"),
+      backgroundColor: Colors.green.shade300,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(process);
+    try {
+      loginInfo = await ApiServices.loginApi(email, password);
+    } catch (e) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text("Login Fail"),
+        backgroundColor: Colors.red.shade300,
+      ));
+    }
+    if (loginInfo != null) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (builder) => MyHomePage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -70,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: Center(
                       child: TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Padding(
@@ -99,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Center(
                         child: TextField(
+                          controller: passwordController,
                           obscureText: _isObscure,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -140,7 +172,10 @@ class _LoginPageState extends State<LoginPage> {
                       color: Color(0xff5663ff),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await loginUser(
+                            emailController.text, passwordController.text);
+                      },
                       child: Text(
                         "Login",
                         style: AppStyles.h1.copyWith(
@@ -180,10 +215,44 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              LargeIconButton(
-                buttonName: 'Continue with Google',
-                iconImage:
-                'assets/images/auth/google_icon.png',
+              TextButton(
+                onPressed: () {},
+                child: Container(
+                  height: size.height * 0.05,
+                  width: size.width * 0.8,
+                  // height: 30,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 0,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          // height: 25,
+                          child:
+                              Image.asset('assets/images/auth/google_icon.png'),
+                        ),
+                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          "Login By Google",
+                          style: AppStyles.h1.copyWith(fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 20,
