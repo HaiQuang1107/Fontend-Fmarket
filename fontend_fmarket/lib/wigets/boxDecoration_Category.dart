@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../design/app_styles.dart';
+import '../designs/app_styles.dart';
+
 class BoxDecorationCate extends StatelessWidget {
   final Color background;
   final String title;

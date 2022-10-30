@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../networks/api_services.dart';
-import '../../wiget/backgroundImage.dart';
+import '../../networks/api/api_services.dart';
+import '../../wigets/backgroundImage.dart';
 
 class ChangePassword extends StatefulWidget {
   // const ChangePassword({Key? key}) : super(key: key);

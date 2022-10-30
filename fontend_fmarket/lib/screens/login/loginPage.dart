@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fontend_fmarket/design/app_styles.dart';
 import 'package:fontend_fmarket/main.dart';
-import 'package:fontend_fmarket/networks/api_services.dart';
+import 'package:fontend_fmarket/networks/api/api_services.dart';
 import 'package:fontend_fmarket/screens/login/createAccout.dart';
-import 'package:fontend_fmarket/screens/product/productPage.dart';
-
-import '../../wiget/backgroundImage.dart';
-import '../../wiget/large_icon_button.dart';
+import '../../designs/app_styles.dart';
 import '../../models/login.dart';
+import '../../wigets/backgroundImage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

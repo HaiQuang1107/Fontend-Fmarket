@@ -5,7 +5,7 @@ import 'package:fontend_fmarket/screens/cart/cartPage.dart';
 import 'package:fontend_fmarket/screens/category/categoryListPage.dart';
 import 'package:fontend_fmarket/screens/product/productPage.dart';
 import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
-import 'firebase_options.dart';
+import 'networks/firebase/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

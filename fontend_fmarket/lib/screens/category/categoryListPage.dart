@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../design/colors.dart';
+import '../../designs/colors.dart';
 import '../../main.dart';
-import '../../wiget/boxDecoration_Category.dart';
+import '../../wigets/boxDecoration_Category.dart';
 class Catee extends StatefulWidget {
   const Catee({Key? key}) : super(key: key);
 

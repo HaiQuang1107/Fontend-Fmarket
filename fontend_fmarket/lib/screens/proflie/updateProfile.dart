@@ -4,9 +4,10 @@ import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../networks/api_services.dart';
-import '../../wiget/backgroundImage.dart';
+import '../../networks/api/api_services.dart';
+import '../../wigets/backgroundImage.dart';
 
 class UpdateProfile extends StatefulWidget {
   // const UpdateProfile({Key? key}) : super(key: key);
@@ -46,7 +47,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
     this.phone=phone;
     this.address=adreess;
     this.image = image;
-    print(image);
     emailController.text = email;
     nameController.text =fullname;
     phoneController.text =phone;
@@ -165,30 +165,33 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      height: size.height * 0.08,
-                      width: size.width * 0.8,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Center(
-                        child: TextField(
-                          controller: emailController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Icon(
-                                Icons.email_outlined,
-                                // size: 28,
-                                color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        height: size.height * 0.08,
+                        width: size.width * 0.8,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Center(
+                          child: TextField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              prefixIcon: Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                                child: Icon(
+                                  Icons.email_outlined,
+                                  // size: 28,
+                                  color: Colors.white,
+                                ),
                               ),
+                              hintText: "Email",
+                              hintStyle: TextStyle(
+                                  fontSize: 22, color: Colors.white, height: 1.5),
                             ),
-                            hintText: "Email",
-                            hintStyle: TextStyle(
-                                fontSize: 22, color: Colors.white, height: 1.5),
                           ),
                         ),
                       ),

@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:fontend_fmarket/design/app_styles.dart';
 import 'package:fontend_fmarket/models/product.dart';
-import 'package:fontend_fmarket/networks/api_services.dart';
+import 'package:fontend_fmarket/networks/api/api_services.dart';
 import 'package:fontend_fmarket/screens/product/productDetail.dart';
+
+import '../../designs/app_styles.dart';
 
 class Homepage extends StatefulWidget {
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../design/exampledata.dart';
+import '../../designs/exampledata.dart';
 import '../../main.dart';
 class Cartpage extends StatefulWidget {
   const Cartpage({Key? key}) : super(key: key);

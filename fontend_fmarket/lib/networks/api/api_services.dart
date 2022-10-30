@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
-import '../models/category.dart';
-import '../models/login.dart';
-import '../models/product.dart';
+import '../../models/category.dart';
+import '../../models/login.dart';
+import '../../models/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/userProfile.dart';
+import '../../models/userProfile.dart';
 
 class ApiServices {
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
