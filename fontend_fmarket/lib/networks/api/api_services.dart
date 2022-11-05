@@ -11,15 +11,17 @@ import '../../models/userProfile.dart';
 class ApiServices {
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  static Future<List<Product>> ftechProductes() async {
+  static Future<SharedPreferences> get prefs => _prefs;
+
+  static Future<List<Product>> ftechProductes(String content) async {
     try {
-      var url = 'https://secondhand-shop.herokuapp.com/products/getAllProduct';
+      var url = 'https://secondhand-shop.herokuapp.com/products?content=${content}&pageNo=0&pageSize=1000';
       var response = await http.get(Uri.parse(url));
 
       var productes = <Product>[];
       if (response.statusCode == 200) {
         var productesJson = json.jsonDecode(response.body);
-        for (var cc in productesJson) {
+        for (var cc in productesJson["list"]) {
           productes.add(Product.fromJson(cc));
         }
       } else {
@@ -32,6 +34,7 @@ class ApiServices {
     }
     return List.empty();
   }
+
 
   static Future<List<Category>> ftechCategories() async {
     try {
@@ -80,6 +83,7 @@ class ApiServices {
   static Future<Profile?> getProfile() async {
     final SharedPreferences prefs = await _prefs;
     String? email = prefs.getString("email");
+    print(email);
     var url = 'https://secondhand-shop.herokuapp.com/informations/${email}';
     var response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -91,7 +95,6 @@ class ApiServices {
     }
   }
   static Future<String> UpdateApi(String email, String name, String adress, String phone,String? image) async {
-    Login? lg = null;
 
     var url = 'https://secondhand-shop.herokuapp.com/informations/${email}';
     var response = await http.post(Uri.parse(url),
@@ -101,7 +104,7 @@ class ApiServices {
               "phone": phone,
               "address": adress,
               "image": image }));
-
+print("IMG:" + image!);
     if (response.statusCode == 200) {
       return "Update success";
     } else {
@@ -109,7 +112,6 @@ class ApiServices {
     }
   }
   static Future<String> UpdatePassword(String email, String password) async {
-    Login? lg = null;
 
     var url = 'https://secondhand-shop.herokuapp.com/informations/change_password/${email}';
     var response = await http.put(Uri.parse(url),

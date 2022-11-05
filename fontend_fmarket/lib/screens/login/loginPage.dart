@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/main.dart';
 import 'package:fontend_fmarket/networks/api/api_services.dart';
 import 'package:fontend_fmarket/screens/login/createAccout.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../designs/app_styles.dart';
 import '../../models/login.dart';
 import '../../wigets/backgroundImage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' show json;
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: '820748105789-j1pqpajbn2aooe13cuqnrbr9k6s5ls2v.apps.googleusercontent.com',
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,7 +30,27 @@ class _LoginPageState extends State<LoginPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  GoogleSignInAccount? _currentUser;
+  String _contactText = '';
   Future<Login>? _futureLogin;
+
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+      if (_currentUser != null) {
+        _handleGetContact(_currentUser!);
+      }
+    });
+    // _googleSignIn.signInSilently();
+    _handleSignOut();
+  }
+
+
 
   Future<void> loginUser(String email, String password) async {
     Login? loginInfo;
@@ -42,6 +74,67 @@ class _LoginPageState extends State<LoginPage> {
           context, MaterialPageRoute(builder: (builder) => MyHomePage()));
     }
   }
+
+
+  Future<void> _handleGetContact(GoogleSignInAccount user) async {
+    setState(() {
+      _contactText = 'Loading contact info...';
+    });
+    final http.Response response = await http.get(
+      Uri.parse('https://people.googleapis.com/v1/people/me/connections'
+          '?requestMask.includeField=person.names'),
+      headers: await user.authHeaders,
+    );
+    if (response.statusCode != 200) {
+      setState(() {
+        _contactText = 'People API gave a ${response.statusCode} '
+            'response. Check logs for details.';
+      });
+      print('People API ${response.statusCode} response: ${response.body}');
+      return;
+    }
+    final Map<String, dynamic> data =
+    json.decode(response.body) as Map<String, dynamic>;
+    final String? namedContact = _pickFirstNamedContact(data);
+    setState(() {
+      if (namedContact != null) {
+        _contactText = 'I see you know $namedContact!';
+      } else {
+        _contactText = 'No contacts to display.';
+      }
+    });
+  }
+
+  String? _pickFirstNamedContact(Map<String, dynamic> data) {
+    final List<dynamic>? connections = data['connections'] as List<dynamic>?;
+    final Map<String, dynamic>? contact = connections?.firstWhere(
+          (dynamic contact) => contact['names'] != null,
+      orElse: () => null,
+    ) as Map<String, dynamic>?;
+    if (contact != null) {
+      final Map<String, dynamic>? name = contact['names'].firstWhere(
+            (dynamic name) => name['displayName'] != null,
+        orElse: () => null,
+      ) as Map<String, dynamic>?;
+      if (name != null) {
+        return name['displayName'] as String?;
+      }
+    }
+    return null;
+  }
+
+  Future<void> _handleSignIn() async {
+    // await _googleSignIn.disconnect();
+    try {
+
+     _currentUser = await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();
+
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +306,25 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+
+                  await _handleSignIn();
+
+                  if(_currentUser != null){
+                    print(_currentUser!.email);
+                    SnackBar process = SnackBar(
+                      content:  Text("Login with " + _currentUser!.email),
+                      backgroundColor: Colors.green.shade300,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(process);
+                    final SharedPreferences prefs = await _prefs;
+                    prefs.setString("email", _currentUser!.email);
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (builder) => MyHomePage()));
+                  } else{
+                    print("Chua dang nhap");
+                  }
+                },
                 child: Container(
                   height: size.height * 0.05,
                   width: size.width * 0.8,

@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fontend_fmarket/main.dart';
 import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../networks/api/api_services.dart';
@@ -65,15 +66,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
         imageFile = File(pickedFile!.path);
 
       });
-      try {
-        final fileStore = storageRef.child("avatar/${DateTime.now()}");
-        final uploadFile = await fileStore.putFile(imageFile!);
-        image =  await fileStore.getDownloadURL();
-        print(image);
-      } on FirebaseException catch (e) {
-        print(e);
-      }
-      print(imageFile != null);
+      // try {
+      //   final fileStore = storageRef.child("avatar/${DateTime.now()}");
+      //   final uploadFile = await fileStore.putFile(imageFile!);
+      //   image =  await fileStore.getDownloadURL();
+      //   print(image);
+      // } on FirebaseException catch (e) {
+      //   print(e);
+      // }
+      // print(imageFile != null);
     }
   }
 
@@ -83,16 +84,21 @@ class _UpdateProfileState extends State<UpdateProfile> {
     SnackBar process = SnackBar(content: const Text("Processing Update"),backgroundColor: Colors.green.shade300,);
     ScaffoldMessenger.of(context).showSnackBar(process);
     try {
+      final fileStore = storageRef.child("avatar/${DateTime.now()}");
+      final uploadFile = await fileStore.putFile(imageFile!);
+      image =  await fileStore.getDownloadURL();
+
       result = await ApiServices.UpdateApi(email, name, address, phone, image);
       SnackBar process = SnackBar(content: Text(result),backgroundColor: Colors.green.shade300,);
       ScaffoldMessenger.of(context).showSnackBar(process);
     }catch (e) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Update Fail"),backgroundColor: Colors.red.shade300,));
+
     }
     if(result == "Update success"){
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
-     // Navigator.push(context, MaterialPageRoute(builder: (builder) => Profilepage()));
+      Navigator.push(context, MaterialPageRoute(builder: (builder) => MyHomePage()));
     }
 
     return result;
@@ -165,9 +171,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
+                      Container(
                         height: size.height * 0.08,
                         width: size.width * 0.8,
                         decoration: BoxDecoration(
@@ -195,7 +199,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           ),
                         ),
                       ),
-                    ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: Container(

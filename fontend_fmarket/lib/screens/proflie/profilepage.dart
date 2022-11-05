@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:fontend_fmarket/main.dart';
 import 'package:fontend_fmarket/models/userProfile.dart';
 import 'package:fontend_fmarket/networks/api/api_services.dart';
 import 'package:fontend_fmarket/screens/proflie/changePassword.dart';
 import 'package:fontend_fmarket/screens/proflie/updateProfile.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../login/loginPage.dart';
-
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: '820748105789-j1pqpajbn2aooe13cuqnrbr9k6s5ls2v.apps.googleusercontent.com',
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 class Profilepage extends StatefulWidget {
   const Profilepage({Key? key}) : super(key: key);
 
@@ -14,30 +23,36 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
-  static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  static Future<SharedPreferences> _prefs = ApiServices.prefs;
   late Future<String?> email;
+  Future<Profile?> getProfileF = ApiServices.getProfile();
   String? email1;
+  bool isLogin = false;
   @override
   void initState() {
     super.initState();
-    email = _prefs
+     email = _prefs
         .then((SharedPreferences prefs) => prefs.getString("email") ?? "");
+
   }
 
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();
   @override
   Widget build(BuildContext context) {
+
     return Drawer(
         child: FutureBuilder<Profile?>(
-      future: ApiServices.getProfile(),
+      future: getProfileF,
       builder: (context, snapshot) {
+        Profile? profile;
         if (!snapshot.hasData) {
-          return Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (builder) => LoginPage()));
+         isLogin = false;
         } else {
-          Profile? profile = snapshot.data;
+          profile = snapshot.data;
+          isLogin = true;
+        }
           return ListView(
             // Remove padding
             padding: EdgeInsets.zero,
@@ -98,16 +113,26 @@ class _ProfilepageState extends State<Profilepage> {
               ),
               Divider(),
               ListTile(
-                title: Text('Log in'),
+                title: isLogin ? Text('Log Out') : Text('Log in'),
                 leading: Icon(Icons.login),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                onTap: () async {
+                  if(!isLogin){
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  } else{
+                    _handleSignOut();
+                    final SharedPreferences prefs = await _prefs;
+                    await prefs.clear();
+                    String? em = prefs.getString("email");
+                    print(em);
+                    Navigator.pushReplacement(
+                        context, MaterialPageRoute(builder: (builder) => new MyHomePage()));
+                  }
                 },
               ),
             ],
           );
-        }
+
       },
     ));
   }

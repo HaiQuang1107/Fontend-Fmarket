@@ -3,9 +3,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fontend_fmarket/screens/cart/cartPage.dart';
 import 'package:fontend_fmarket/screens/category/categoryListPage.dart';
+import 'package:fontend_fmarket/screens/product/productCategory.dart';
 import 'package:fontend_fmarket/screens/product/productPage.dart';
 import 'package:fontend_fmarket/screens/proflie/profilepage.dart';
 import 'networks/firebase/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -65,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage>
           Homepage(),
           // Categorypage(),
           // CategoryScreen(),
+
           Catee(),
           Cartpage(),
           Profilepage(),

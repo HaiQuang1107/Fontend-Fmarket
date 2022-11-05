@@ -5,31 +5,41 @@ import 'package:fontend_fmarket/models/category.dart';
 import 'package:fontend_fmarket/networks/api/api_services.dart';
 import 'package:http/http.dart' as http;
 
+import '../../main.dart';
+import '../../models/cart.dart';
+
 class ProductDetail extends StatefulWidget {
   // const ProductDetail({Key? key}) : super(key: key);
   String name1 = "";
   String price1 ="";
   String deception1="";
   String image1 ="";
-
-  ProductDetail(String name, String price,String deception, String image ) {
+  int? id;
+  ProductDetail(int? id, String name, String price,String deception, String image ) {
     name1 = name;
     price1 =price;
     image1 = image;
     deception1=deception;
+    this.id = id;
   }
 
   @override
-  State<ProductDetail> createState() => _ProductDetailState(name1,price1,deception1,image1);
+  State<ProductDetail> createState() => _ProductDetailState(id, name1,price1,deception1,image1);
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  int? id;
   String name1 = "";
   String price1="";
   String deception1;
   String image1 ="";
+  late ProductCart pc;
+  _ProductDetailState(this.id, this.name1,this.price1,this.deception1,this.image1){
+    pc = new ProductCart(this.id, this.name1, this.price1, this.deception1, this.image1, 0);
+  }
 
-  _ProductDetailState(this.name1,this.price1,this.deception1,this.image1);
+  @override
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,12 +114,24 @@ class _ProductDetailState extends State<ProductDetail> {
                         color: Color(0xFFF17532)
                     ),
                     child: Center(
-                        child: Text('Add to cart',
-                          style: TextStyle(
-                              fontFamily: 'Varela',
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white
+                        child: TextButton(
+                          onPressed: () {
+                            CartObj.instance()?.addToCart(pc);
+                            Navigator.pop(
+                                context);
+                            // SnackBar process = SnackBar(
+                            //   content: const Text("Add to cart successfully"),
+                            //   backgroundColor: Colors.green.shade300,
+                            // );
+                            // ScaffoldMessenger.of(context).showSnackBar(process);
+                          },
+                          child: Text('Add to cart',
+                            style: TextStyle(
+                                fontFamily: 'Varela',
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white
+                            ),
                           ),
                         )
                     )

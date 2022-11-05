@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fontend_fmarket/models/cart.dart';
 import '../../designs/exampledata.dart';
 import '../../main.dart';
 class Cartpage extends StatefulWidget {
@@ -10,7 +11,7 @@ class Cartpage extends StatefulWidget {
 }
 
 class _CartpageState extends State<Cartpage> {
-
+ late List<ProductCart> list;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +45,12 @@ class _CartpageState extends State<Cartpage> {
   }
 
   Widget getBody() {
-    return ListView(
+    return list.length == 0 ? Center(
+      child: Text("Cart is empty"),
+    ) :  ListView(
       children: [
         Column(
-            children: List.generate(cartList.length, (index) {
+            children: List.generate(list.length, (index) {
               return Column(
                 children: [
                   Padding(
@@ -60,7 +63,7 @@ class _CartpageState extends State<Cartpage> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
-                                  image: NetworkImage(cartList[index]['img']),
+                                  image: NetworkImage(list[index].image1),
                                   fit: BoxFit.cover)),
                         ),
                         SizedBox(
@@ -70,33 +73,33 @@ class _CartpageState extends State<Cartpage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              cartList[index]['name'],
+                              list[index].name,
                               style: TextStyle(fontSize: 22),
                             ),
                             SizedBox(
                               height: 10,
                             ),
                             Text(
-                              "ref " + cartList[index]['ref'],
+                              "ref " + list[index].id.toString(),
                               style: TextStyle(
                                   fontSize: 13, color: Colors.black.withOpacity(0.7)),
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              "Size:  " + cartList[index]['size'],
-                              style: TextStyle(
-                                fontSize: 22,
-                              ),
-                            ),
+                            // Text(
+                            //   "Size:  " + list[index].deception,
+                            //   style: TextStyle(
+                            //     fontSize: 22,
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 40,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text(cartList[index]['price'],
+                                Text(list[index].price + "\$",
                                     style: TextStyle(
                                       fontSize: 22,
                                     )),
@@ -124,7 +127,7 @@ class _CartpageState extends State<Cartpage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "1",
+                                      list[index].quantity.toString(),
                                       style: TextStyle(fontSize: 15),
                                     ),
                                     SizedBox(
@@ -178,14 +181,31 @@ class _CartpageState extends State<Cartpage> {
             decoration: BoxDecoration(
                 color: Colors.black, borderRadius: BorderRadius.circular(50 / 2)),
             child: Center(
-              child: Text(
-                "Buy for \$50".toUpperCase(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+                child: TextButton(
+                  onPressed: (){
+                    SnackBar process = SnackBar(
+                      content: const Text("Buy Successfully"),
+                      backgroundColor: Colors.green.shade300,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(process);
+                    CartObj.instance()?.clear();
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (builder) => MyHomePage()));
+                  },
+                  child: Text(
+                    "Buy for ${CartObj.instance()?.getTotal().toString()}\$".toUpperCase(),
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                )
             ),
           ),
         )
       ],
     );
+  }
+
+  @override
+  void initState() {
+   list = CartObj.instance()?.getItems() as List<ProductCart>;
   }
 }

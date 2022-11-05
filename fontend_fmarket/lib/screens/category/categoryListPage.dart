@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../designs/colors.dart';
 import '../../main.dart';
 import '../../wigets/boxDecoration_Category.dart';
+import '../product/productCategory.dart';
 class Catee extends StatefulWidget {
   const Catee({Key? key}) : super(key: key);
 
@@ -48,22 +49,39 @@ class _CateeState extends State<Catee> {
                   children: [
                     Column(
 
-                      children: const [
-                        BoxDecorationCate(
-                            background: AppColors.pink,
-                            title: 'LapTop',
-                            image: 'assets/images/TBDT.png'),
+                      children:  [
+
+                       BoxDecorationCate(
+                         onPress: (){
+                           Navigator.pushReplacement(
+                               context, MaterialPageRoute(builder: (builder) =>new ProductCate("Laptop")));
+                         },
+                           background: AppColors.pink,
+                           title: 'LapTop',
+                           image: 'assets/images/TBDT.png'),
 
 
                         BoxDecorationCate(
+                          onPress: (){
+                            Navigator.pushReplacement(
+                                context, MaterialPageRoute(builder: (builder) => new ProductCate("Musical Instruments")));
+                          },
                             background: AppColors.green,
-                            title: 'Book',
+                            title: 'Musical',
                             image: 'assets/images/Mi.png'),
                         BoxDecorationCate(
+                          onPress: (){
+                            Navigator.pushReplacement(
+                                context, MaterialPageRoute(builder: (builder) =>new  ProductCate("Clothes")));
+                          },
                             background: AppColors.purple,
                             title: 'Clothes',
                             image: 'assets/images/Cl.png'),
                         BoxDecorationCate(
+                          onPress: (){
+                            Navigator.pushReplacement(
+                                context, MaterialPageRoute(builder: (builder) =>new  ProductCate("Book")));
+                          },
                             background: AppColors.orange,
                             title: 'Book',
                             image: 'assets/images/Bookk.png'),

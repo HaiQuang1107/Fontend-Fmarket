@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../designs/app_styles.dart';
+import '../screens/product/productCategory.dart';
 
 class BoxDecorationCate extends StatelessWidget {
   final Color background;
   final String title;
   final String image;
+  final VoidCallback onPress;
   const BoxDecorationCate(
       {Key? key,
         required this.background,
         required this.title,
-        required this.image})
+        required this.image,
+      required this.onPress})
       : super(key: key);
 
   @override
@@ -31,19 +34,22 @@ class BoxDecorationCate extends StatelessWidget {
                 color: const Color(0xFF0B0C2A).withOpacity(.09),
                 offset: const Offset(10, 10))
           ]),
-      child: Row( children: [
-        const SizedBox(height: 16),
-        Padding(padding: EdgeInsets.only(left: 15),
-            child: Image.asset(image,
-              width: 100,
-              height:100,
+      child: TextButton(
+        onPressed: onPress,
+        child: Row( children: [
+          const SizedBox(height: 16),
+          Padding(padding: EdgeInsets.only(left: 15),
+              child: Image.asset(image,
+                width: 100,
+                height:100,
 
-            )
-        ),
-        Padding(padding: EdgeInsets.only(left: 50),
-          child: Text(title, style: AppStyles.m12w,),
-          // Text(subtitle, style: AppStyles.r10wt),
-        )]),
+              )
+          ),
+          Padding(padding: EdgeInsets.only(left: 50),
+            child: Text(title, style: AppStyles.m12w,),
+            // Text(subtitle, style: AppStyles.r10wt),
+          )]),
+      ),
     );
   }
 }
