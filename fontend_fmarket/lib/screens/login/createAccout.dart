@@ -13,6 +13,7 @@ class CreateNewAccount extends StatefulWidget {
 }
 
 class _CreateNewAccountState extends State<CreateNewAccount> {
+  bool _isObscure1 = true;
   String email = "";
   String fullName = "";
   String password = "";
@@ -144,6 +145,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                         ),
                         child: Center(
                           child: TextField(
+                            obscureText: _isObscure1,
                             controller: passwordController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
@@ -157,12 +159,22 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                                 ),
                               ),
                               hintText: "password",
+                              suffixIcon: IconButton(
+                                icon: Icon(_isObscure1
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _isObscure1 = !_isObscure1;
+                                  });
+                                },
+                              ),
                               hintStyle: TextStyle(
                                   fontSize: 22,
                                   color: Colors.white,
                                   height: 1.5),
                             ),
-                            obscureText: true,
+
                           ),
                         ),
                       ),

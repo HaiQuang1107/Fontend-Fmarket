@@ -80,18 +80,33 @@ class _ProfilepageState extends State<Profilepage> {
                 ),
               ),
               ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('My Account'),
+                leading: Icon(Icons.home),
+                title: Text('Home'),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => new UpdateProfile(
-                              profile!.email!,
-                              profile!.fullName!,
-                              profile!.phone!,
-                              profile!.address!,
-                              profile.image ?? "")));
+                          builder: (context) => MyHomePage(
+                          )));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle),
+                title: Text('My Account'),
+                onTap: () {
+                  if(profile == null){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => new LoginPage()));
+                  }else{
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => new UpdateProfile(
+                                profile!.email!,
+                                profile!.fullName!,
+                                profile!.phone!,
+                                profile!.address!,
+                                profile.image ?? "")));
+                  }
                 },
               ),
               ListTile(
@@ -104,11 +119,15 @@ class _ProfilepageState extends State<Profilepage> {
                 leading: Icon(Icons.key_outlined),
                 title: Text('Change Password'),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ChangePassword(profile!.email!)));
+                  if(profile == null){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => new LoginPage()));
+                  } else{
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ChangePassword(profile!.email!)));
+                  }
                 },
               ),
               Divider(),

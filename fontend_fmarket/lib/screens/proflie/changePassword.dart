@@ -226,6 +226,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                   child: TextButton(
                     onPressed: ()  async{
+
                       if (confirmNewPasswordController.text != newPasswordController.text){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: const Text("Password not match."),backgroundColor: Colors.red.shade300,));
                         return;

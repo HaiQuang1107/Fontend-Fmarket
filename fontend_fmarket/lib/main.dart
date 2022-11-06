@@ -67,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage>
           Homepage(),
           // Categorypage(),
           // CategoryScreen(),
-
           Catee(),
           Cartpage(),
           Profilepage(),

@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        BackgroundImage(
+      BackgroundImage(
           image: 'assets/images/auth/Login3.png',
         ),
         Scaffold(
@@ -190,6 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: Center(
                       child: TextField(
+
                         controller: emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,

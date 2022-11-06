@@ -84,9 +84,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
     SnackBar process = SnackBar(content: const Text("Processing Update"),backgroundColor: Colors.green.shade300,);
     ScaffoldMessenger.of(context).showSnackBar(process);
     try {
-      final fileStore = storageRef.child("avatar/${DateTime.now()}");
-      final uploadFile = await fileStore.putFile(imageFile!);
-      image =  await fileStore.getDownloadURL();
+      if(imageFile != null){
+        final fileStore = storageRef.child("avatar/${DateTime.now()}");
+        final uploadFile = await fileStore.putFile(imageFile!);
+        image =  await fileStore.getDownloadURL();
+      }
 
       result = await ApiServices.UpdateApi(email, name, address, phone, image);
       SnackBar process = SnackBar(content: Text(result),backgroundColor: Colors.green.shade300,);
@@ -98,7 +100,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
     }
     if(result == "Update success"){
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      Navigator.push(context, MaterialPageRoute(builder: (builder) => MyHomePage()));
+       Navigator.push(context, MaterialPageRoute(builder: (builder) => Profilepage()));
     }
 
     return result;

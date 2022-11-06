@@ -54,10 +54,10 @@ class _CateeState extends State<Catee> {
                        BoxDecorationCate(
                          onPress: (){
                            Navigator.pushReplacement(
-                               context, MaterialPageRoute(builder: (builder) =>new ProductCate("Laptop")));
+                               context, MaterialPageRoute(builder: (builder) =>new ProductCate("Electronic Device")));
                          },
                            background: AppColors.pink,
-                           title: 'LapTop',
+                           title: 'Electronic ',
                            image: 'assets/images/TBDT.png'),
 
 

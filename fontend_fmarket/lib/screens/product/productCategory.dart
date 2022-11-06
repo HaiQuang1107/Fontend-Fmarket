@@ -177,7 +177,7 @@ class _ProductCateState extends State<ProductCate> {
                                             child: Text(
                                               "Name:  " +
                                                   list[index].name.toString(),
-
+                                              style: TextStyle(fontSize: 12),
                                               // style: AppTheme.of(context).bodyText2,
                                             ),
                                           ),
